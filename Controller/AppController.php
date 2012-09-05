@@ -24,7 +24,14 @@ class AppController extends Controller {
 		'Auth',
 		'RequestHandler'
 	);
-	
+
+	/**
+	 * Convenience flag for subclasses to override;
+	 * sets all the parameters to respond with JSON.
+	 * @var bool
+	 */
+	public $renderJson = false;
+
 	/**
 	 * Handles pre-action logic
 	 */
@@ -41,6 +48,15 @@ class AppController extends Controller {
 				),
 			), 'Bcrypt'
 		);
+		$this->Auth->authorize = 'Controller';
+
+		// Allow everything; isAuthorized will take care of denying admin pages.
+		$this->Auth->allow('*');
+
+		if ($this->renderJson) {
+			$this->RequestHandler->renderAs($this, 'json');
+			$this->viewClass = 'JsonView';
+		}
 	}
 	
 	/**

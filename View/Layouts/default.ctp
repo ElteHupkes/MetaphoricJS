@@ -15,19 +15,20 @@
 <body>
 <?php
 	echo $this->fetch('content');
+	echo $this->element('all_templates');
 ?>
-
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 <?php
 if (Configure::read('debug') > 1) {
-	echo $this->Html->script(array('ember-1.0.pre', 'handlebars-1.0.0.beta.6'));
+	echo $this->Html->script(array('handlebars-1.0.0.beta.6', 'ember-1.0.pre'));
 } else {
 ?>
 <script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/1.0.0.beta6/handlebars.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/ember.js/1.0.pre/ember-1.0.pre.min.js"></script>
 <?php
 }
-	echo $this->Html->script('app'), $this->fetch('script'); 
+	echo $this->Html->script(array('app', 'routes')), $this->fetch('script'),
+			$this->Html->script('init');
 ?>
 </body>
 </html>

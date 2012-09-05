@@ -4,19 +4,7 @@
  * @author Elte Hupkes
  */
 class PostsController extends AppController {
-	/**
-	 * Every action here has JSON output; use JSON view class.
-	 */
-	public $viewClass = 'JsonView';
-
-	/**
-	 * Pre-action logic.
-	 */
-	public function beforeFilter() {
-		parent::beforeFilter();
-		
-		$this->RequestHandler->renderAs($this, 'json');
-	}
+	public $renderJson = true;
 	
 	/**
 	 * Returns a list of posts
@@ -27,5 +15,19 @@ class PostsController extends AppController {
 			'posts' => $posts,
 			'_serialize' => 'posts'
 		));
+	}
+
+	/**
+	 * Adds a post
+	 */
+	public function admin_add() {
+
+	}
+
+	/**
+	 * Updates an existing post
+	 */
+	public function admin_edit() {
+
 	}
 }
