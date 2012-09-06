@@ -173,7 +173,8 @@
  *
  */
 	Configure::write('Session', array(
-		'defaults' => 'database'
+		'defaults' => 'database',
+		'checkAgent' => false
 	));
 
 /**

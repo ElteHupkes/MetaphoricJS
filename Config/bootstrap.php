@@ -179,3 +179,15 @@ CakeLog::config('error', array(
 	'types' => array('warning', 'error', 'critical', 'alert', 'emergency'),
 	'file' => 'error',
 ));
+
+// Utility functions
+/**
+ * Matches a password to its Bcrypt hash.
+ * @param string $password
+ * @param string $hash
+ * @return bool
+ */
+function checkPassword($password, $hash) {
+	App::uses('BcryptAuthenticate', 'Controller/Component/Auth');
+	return BcryptAuthenticate::checkPassword($password, $hash);
+}

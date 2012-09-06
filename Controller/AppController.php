@@ -48,24 +48,28 @@ class AppController extends Controller {
 				),
 			), 'Bcrypt'
 		);
-		$this->Auth->authorize = 'Controller';
 
-		// Allow everything; isAuthorized will take care of denying admin pages.
-		$this->Auth->allow('*');
+		// Allow every page without the admin prefix
+		if (empty($this->request->params['prefix'])) {
+			$this->Auth->allow('*');
+		}
 
 		if ($this->renderJson) {
 			$this->RequestHandler->renderAs($this, 'json');
-			$this->viewClass = 'JsonView';
 		}
 	}
-	
+
 	/**
-	 * Authorization method, currently very simple: everyone
-	 * who is logged in can access admin functionality; Non-admin
-	 * functionality can be accessed by anyone.
+	 * Call this method to display a "not authorized"
+	 * message.
 	 */
-	public function isAuthorized() {
-		return ($this->Auth->loggedIn() || empty($this->request->params['prefix']));
+	protected function _notAuthorized() {
+		$this->RequestHandler->renderAs($this, 'json');
+		$this->response->statusCode(401);
+		$this->set(array(
+			'message' => __('You are not authorized to view this location.'),
+			'_serialize' => 'message'
+		));
 	}
 }
 
