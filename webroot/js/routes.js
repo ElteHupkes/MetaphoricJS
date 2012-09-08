@@ -17,7 +17,7 @@ App.Router = Ember.Router.extend({
 			index: Ember.Route.extend({
 				route: '/',
 				connectOutlets : function(router, context) {
-					router.get('applicationController').connectOutlet('posts', App.Post.findAll())
+					router.get('applicationController').connectOutlet('postsIndex', App.Post.findAll())
 				}
 			}),
 
