@@ -62,4 +62,15 @@ class User extends AppModel {
 
 		return !empty($pw) && checkPassword($f, $pw);
 	}
+
+	/**
+	 * Encrypts password before save
+	 * @return bool
+	 */
+	public function beforeSave() {
+		if (isset($this->data['User']['password'])) {
+			$this->data['User']['password'] = password($this->data['User']['password']);
+		}
+		return true;
+	}
 }

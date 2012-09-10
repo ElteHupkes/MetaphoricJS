@@ -27,8 +27,11 @@ if (Configure::read('debug') > 1) {
 <script src="//cdnjs.cloudflare.com/ajax/libs/ember.js/1.0.pre/ember-1.0.pre.min.js"></script>
 <?php
 }
-	echo $this->Html->script(array('app', 'routes')), $this->fetch('script'),
+	echo $this->Html->script(array('lib/CLDR', 'lib/ember-i18n-latest', 'app', 'routes')), $this->fetch('script'),
 			$this->Html->script('init');
 ?>
+<script type="text/javascript">
+	CLDR.defaultLocale = 'en';
+</script>
 </body>
 </html>

@@ -26,6 +26,8 @@ foreach ($directories as $dir) {
 			$name = str_replace('\\', '/', str_replace($base, '', $path));
 			$name = substr($name, 0, strlen($name) - 3);
 			$this->Html->script($name, array('inline' => false));
+		} elseif (preg_match('#\.html$#', $path)) {
+			echo file_get_contents($path);
 		}
 	}
 }

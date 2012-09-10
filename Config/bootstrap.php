@@ -180,6 +180,17 @@ CakeLog::config('error', array(
 	'file' => 'error',
 ));
 
+/**
+ * Hashes a password and returns it
+ * @param string $password
+ * @param null|string $salt
+ * @return string Hashed password
+ */
+function password($password, $salt = null) {
+	App::uses('BcryptAuthenticate', 'Controller/Component/Auth');
+	return BcryptAuthenticate::hash($password, $salt);
+}
+
 // Utility functions
 /**
  * Matches a password to its Bcrypt hash.

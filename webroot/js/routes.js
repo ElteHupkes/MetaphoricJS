@@ -9,7 +9,8 @@ App.Router = Ember.Router.extend({
 			redirectsTo: 'posts.index'
 		}),
 
-		posts : Ember.Route.extend({
+		// Post subroutes
+		posts: Ember.Route.extend({
 			route: '/posts',
 
 			// Subroutes
@@ -17,7 +18,11 @@ App.Router = Ember.Router.extend({
 			index: Ember.Route.extend({
 				route: '/',
 				connectOutlets : function(router, context) {
-					router.get('applicationController').connectOutlet('postsIndex', App.Post.findAll())
+					router.get('applicationController').connectOutlet({
+						viewClass : App.PostsIndexView,
+						controller : router.get('postsController'),
+						context : App.Post.findAll()
+					});
 				}
 			}),
 
@@ -26,6 +31,26 @@ App.Router = Ember.Router.extend({
 				route: '/view/:id',
 				connectOutlets : function(router, context) {
 
+				}
+			})
+		}),
+
+		// User subroutes
+		users: Em.Route.extend({
+			route: '/users',
+
+			index: Em.Route.extend({
+				route: '/'
+			}),
+
+			create_first: Em.Route.extend({
+				route: '/create_first',
+
+				connectOutlets: function(router, context) {
+					router.get('applicationController').connectOutlet({
+						controller: router.get('usersController'),
+						viewClass: App.UserAddView
+					});
 				}
 			})
 		})
