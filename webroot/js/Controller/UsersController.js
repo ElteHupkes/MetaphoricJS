@@ -3,5 +3,11 @@
  * @type {*}
  */
 App.UsersController = Em.Controller.extend({
-	someContent: 'Ja, dus.'
+	validationErrors: {
+		'User': {
+			'name': []
+		}
+	},
+
+	test: Em.A(['Dit is fout', 'Dit dus ook'])
 });

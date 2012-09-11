@@ -28,6 +28,8 @@ if (Configure::read('debug') > 1) {
 <?php
 }
 	echo $this->Html->script(array('lib/CLDR', 'lib/ember-i18n-latest', 'app', 'routes')), $this->fetch('script'),
+			$this->Html->script(array('lib/Mp/core', 'lib/Mp/Form/core', 'lib/Mp/Form/field', 'lib/Mp/Form/Mixin/text_support',
+						'lib/Mp/Form/text_field', 'lib/Mp/Form/Helper/input')),
 			$this->Html->script('init');
 ?>
 <script type="text/javascript">
