@@ -27,10 +27,17 @@ if (Configure::read('debug') > 1) {
 <script src="//cdnjs.cloudflare.com/ajax/libs/ember.js/1.0.pre/ember-1.0.pre.min.js"></script>
 <?php
 }
-	echo $this->Html->script(array('lib/CLDR', 'lib/ember-i18n-latest', 'app', 'routes')), $this->fetch('script'),
-			$this->Html->script(array('lib/Mp/core', 'lib/Mp/Form/core', 'lib/Mp/Form/field', 'lib/Mp/Form/Mixin/text_support',
-						'lib/Mp/Form/text_field', 'lib/Mp/Form/Helper/input')),
-			$this->Html->script('init');
+/**
+ * Rationale behind the script order:
+ * First the libraries (jQuery, Handlebars before Ember)
+ *
+ * Then pluralization and ember-i18n; followed by a language file.
+ * Finally, include the js_includes file which takes care of its own order.
+ */
+$scripts = explode("\n", file_get_contents(APP.'webroot/js_includes.txt'));
+	echo $this->Html->script(array('lib/CLDR', 'lib/ember-i18n-latest')),
+		$this->Html->script('locale/en'),
+		$this->Html->script($scripts);
 ?>
 <script type="text/javascript">
 	CLDR.defaultLocale = 'en';

@@ -3,11 +3,13 @@
  * @type {*}
  */
 App.UsersController = Em.Controller.extend({
-	validationErrors: {
-		'User': {
-			'name': []
+	data: {
+		User: {
+			name: null
 		}
 	},
 
-	test: Em.A(['Dit is fout', 'Dit dus ook'])
+	doSomething: function() {
+		console.log('Meh');
+	}
 });

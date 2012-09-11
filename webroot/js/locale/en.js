@@ -4,5 +4,6 @@
  * @author Elte Hupkes
  */
 Em.I18n.translations = {
-
+	'user.name' : 'Name:',
+	'user.email' : 'E-mail address:'
 };

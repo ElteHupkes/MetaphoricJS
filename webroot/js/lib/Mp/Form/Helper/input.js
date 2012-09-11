@@ -35,10 +35,12 @@ Mp.Form.InputHelper = (function() {
 				type: 'text',
 
 				// Get own validation errors property from context
-				errorsBinding: 'controller.test'
-			}, options.hash);
+				errorsBinding: 'controller.validationErrors.'+name,
 
-			var inputClass;
+				// We'll just create a value binding, and let the sub input classes
+				// listen to it.
+				valueBinding : 'controller.data.'+name
+			}, options.hash), inputClass;
 
 			switch (settings.type) {
 				case 'text':

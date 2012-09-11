@@ -1,0 +1,17 @@
+app
+lib/Mp/core
+lib/Mp/Form/core
+lib/Mp/Form/Mixin/text_support
+lib/Mp/Form/field
+lib/Mp/Form/text_field
+lib/Mp/Form/Helper/input
+Controller/BaseController
+Controller/PostsController
+Controller/UsersController
+Model/Post
+Model/User
+View/Users/views
+View/Posts/views
+i18n
+routes
+init

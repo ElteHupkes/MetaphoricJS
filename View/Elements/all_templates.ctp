@@ -5,7 +5,7 @@
  * have to be concatenated and included in a static index
  * instead.
  */
-$directories = array('Controller', 'Model', 'View');
+$directories = array('View');
 $base = APP.DS.'webroot'.DS.'js'.DS;
 
 foreach ($directories as $dir) {
@@ -22,10 +22,6 @@ foreach ($directories as $dir) {
 			// Remove extension
 			$name = substr($name, 0, strlen($name) - 11);
 			echo '<script type="text/x-handlebars" data-template-name="'.$name.'">'.file_get_contents($path).'</script>'.PHP_EOL;
-		} elseif (preg_match('#\.js$#', $path)) {
-			$name = str_replace('\\', '/', str_replace($base, '', $path));
-			$name = substr($name, 0, strlen($name) - 3);
-			$this->Html->script($name, array('inline' => false));
 		} elseif (preg_match('#\.html$#', $path)) {
 			echo file_get_contents($path);
 		}
