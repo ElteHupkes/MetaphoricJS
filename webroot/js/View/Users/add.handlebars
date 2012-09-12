@@ -1,7 +1,7 @@
-<form {{action "doSomething" target="controller" on="submit"}}>
+<form {{action "createFirst" target="controller" on="submit"}}>
 	{{input User.name labelTranslation="user.name"}}
 	{{input User.email labelTranslation="user.email" type="email"}}
+	{{input User.password labelTranslation="user.password" type="password"}}
 
-	{{input User.role label="Test select" contentBinding="controller.roles" name="blah"}}
-
+	<button type="submit">Create</button>
 </form>

@@ -31,4 +31,9 @@ App::uses('Model', 'Model');
  * @package       app.Model
  */
 class AppModel extends Model {
+	/**
+	 * Default model only
+	 * @var int
+	 */
+	public $recursive = -1;
 }

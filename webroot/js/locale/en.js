@@ -5,5 +5,6 @@
  */
 Em.I18n.translations = {
 	'user.name' : 'Name:',
-	'user.email' : 'E-mail address:'
+	'user.email' : 'E-mail address:',
+	'user.password': 'Password:'
 };

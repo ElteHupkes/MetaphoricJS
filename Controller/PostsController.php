@@ -3,6 +3,9 @@
  * Controller for posts
  * @author Elte Hupkes
  */
+/**
+ * @property Post $Post
+ */
 class PostsController extends AppController {
 	public $renderJson = true;
 	
@@ -10,7 +13,7 @@ class PostsController extends AppController {
 	 * Returns a list of posts
 	 */
 	public function index() {
-		$posts = array();
+		$posts = $this->Post->find('all');
 		$this->set(array(
 			'posts' => $posts,
 			'_serialize' => 'posts'

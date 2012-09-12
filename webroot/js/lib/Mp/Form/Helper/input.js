@@ -29,7 +29,7 @@
  * the input container view; in addition you can use:
  *
  * type
- * Default types "text", "textarea", "select" and "checkbox"
+ * Default types "text", "password", "textarea", "select" and "checkbox"
  * correspond to built-in types. HTML5 input types that behave
  * as simple text with a pattern (being color, email, url, tel)
  * are also supported, and will be implemented as a simple TextField
@@ -125,6 +125,7 @@ Mp.Form.InputHelper = (function() {
 				case 'email':
 				case 'tel':
 				case 'url':
+				case 'password':
 					inputClass = this.defaultClasses['text'];
 					inferredType = settings.type;
 					break;

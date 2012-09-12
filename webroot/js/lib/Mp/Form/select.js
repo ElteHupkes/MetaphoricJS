@@ -6,6 +6,9 @@ Mp.Form.Select = Mp.Form.Field.extend({
 	optionLabelPath: 'content',
 	optionValuePath: 'content',
 
+	// Just transfer value to selection
+	selectionBinding: 'value',
+
 	inputView: Ember.Select.extend(Mp.Form.InputSupport, {
 		contentBinding:			'parentView.content',
 

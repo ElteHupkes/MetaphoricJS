@@ -9,11 +9,11 @@ lib/Mp/Form/text_area
 lib/Mp/Form/select
 lib/Mp/Form/checkbox
 lib/Mp/Form/Helper/input
+Model/Post
+Model/User
 Controller/BaseController
 Controller/PostsController
 Controller/UsersController
-Model/Post
-Model/User
 View/Users/views
 View/Posts/views
 i18n

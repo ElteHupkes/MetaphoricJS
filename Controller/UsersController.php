@@ -40,4 +40,11 @@ class UsersController extends AppController {
 		}
 		$this->set('_serialize', 'result');
 	}
+
+	/**
+	 *
+	 */
+	public function admin_edit() {
+
+	}
 }
