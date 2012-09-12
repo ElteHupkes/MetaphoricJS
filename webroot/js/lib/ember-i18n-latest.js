@@ -1,3 +1,7 @@
+/**
+ * Ember I18n with modifications by Elte Hupkes.
+ * See LICENSE in this directory for attached MIT license.
+ */
 (function() {
 	var I18n, findTemplate, getPath, isBinding, isTranslatedAttribute, pluralForm;
 
@@ -55,6 +59,34 @@
 						attribute = isTranslatedAttributeMatch[1];
 						translatedValue = I18n.t(path);
 						this.$().attr(attribute, translatedValue);
+					}
+				}
+				return result;
+			}
+		}),
+
+		/**
+		 * This mixin is required for the
+		 * Form helper and plugins. It does the exact same thing
+		 * as TranslateableAttributes, but uses set() on the view
+		 * instead of simply setting an attribute. This allows children
+		 * to listen to this change and correspond to it accordingly.
+		 */
+		TranslateableProperties: Em.Mixin.create({
+			init: function() {
+				var attribute, isTranslatedAttributeMatch, key, path, result, translatedValue;
+				result = this._super.apply(this, arguments);
+				for (key in this) {
+					if (!this.hasOwnProperty(key)) {
+						continue;
+					}
+
+					path = this[key];
+					isTranslatedAttributeMatch = key.match(isTranslatedAttribute);
+					if (isTranslatedAttributeMatch) {
+						attribute = isTranslatedAttributeMatch[1];
+						translatedValue = I18n.t(path);
+						this.set(attribute, translatedValue);
 					}
 				}
 				return result;

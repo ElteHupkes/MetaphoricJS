@@ -9,6 +9,8 @@ App.UsersController = Em.Controller.extend({
 		}
 	},
 
+	roles: ['a', 'b', 'c'],
+
 	doSomething: function() {
 		console.log('Meh');
 	}

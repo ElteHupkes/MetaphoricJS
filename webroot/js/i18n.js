@@ -3,4 +3,4 @@
  *
  * @author Elte Hupkes
  */
-Mp.Form.Field.reopen(Em.I18n.TranslateableAttributes);
+Mp.Form.Field.reopen(Em.I18n.TranslateableProperties);

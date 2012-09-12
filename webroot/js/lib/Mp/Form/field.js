@@ -40,6 +40,9 @@ Mp.Form.Field = Ember.View.extend({
 			return v;
 		}).property('parentView.label'),
 
+		classNameBinding: 'parentView.labelClassNames',
+
+		// Required for setting the "for" attribute on element insertion
 		forBinding : 'inputFieldId',
 		inputFieldId: 'for',
 		attributeBindings: ['for']
@@ -47,7 +50,6 @@ Mp.Form.Field = Ember.View.extend({
 
 	// Maybe just use a text field by default?
 	inputView: Ember.View.extend({
-		classNames: ['input error'],
 		tagName: 'div',
 		template: Ember.Handlebars.compile('This class needs to be extended.')
 	}),
@@ -63,6 +65,7 @@ Mp.Form.Field = Ember.View.extend({
 	 * Sets the correct "for" value for the label.
 	 */
 	didInsertElement: function() {
+		this._super.apply(this);
 		this.set('labelViewInstance.inputFieldId', this.get('inputViewInstance.elementId'))
 	}
 });

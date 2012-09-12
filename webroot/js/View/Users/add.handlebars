@@ -1,3 +1,7 @@
 <form {{action "doSomething" target="controller" on="submit"}}>
-	{{input User.name}}
+	{{input User.name labelTranslation="user.name"}}
+	{{input User.email labelTranslation="user.email" type="email"}}
+
+	{{input User.role label="Test select" contentBinding="controller.roles" name="blah"}}
+
 </form>
