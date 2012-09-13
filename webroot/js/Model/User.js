@@ -11,6 +11,9 @@ App.User = Em.Object.extend({
 	// Attempt to create first record?
 	first: false,
 
+	// A map of keyname => validation errors
+	errors: {},
+
 	//
 	save: function() {
 		var obj = {User: {}},
@@ -18,8 +21,8 @@ App.User = Em.Object.extend({
 				'id', 'name', 'email', 'password'
 			]), action, that = this;
 
-		fields.forEach(function(v) {
-			obj[fields[v]] = that.get(fields[v]);
+		$.each(fields, function(k, v) {
+			obj.User[v] = that.get(v);
 		});
 
 		action = !!obj.id ? 'edit/'+obj.id : 'add';
@@ -30,12 +33,19 @@ App.User = Em.Object.extend({
 			action = '/users/'+action;
 		}
 
-		$.post({
+		$.ajax({
+			type: 'POST',
 			url: action,
 			data: JSON.stringify(obj),
 			success: function(data) {
-				console.log(data);
-			}
+				if (data.status == 0) {
+
+				} else if(data.errors) {
+					// Set validation errors
+					that.set('errors', data.errors);
+				}
+			},
+			contentType: 'application/json'
 		});
 	}
 });

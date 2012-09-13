@@ -24,7 +24,16 @@ class UsersController extends AppController {
 	 */
 	public function create_first() {
 		if ($this->User->find('count') > 0) {
-			throw new NotFoundException;
+			$this->set(array(
+				'result' => array(
+					'status' => 1,
+					'errors' => array(
+						'name' => array(__('A user already exists. Use "add" instead.'))
+					)
+				),
+				'_serialize' => 'result'
+			));
+			return;
 		}
 
 		$this->User->create();
@@ -35,7 +44,8 @@ class UsersController extends AppController {
 			));
 		} else {
 			$this->set('result', array(
-				'status' => 1
+				'status' => 1,
+				'errors' => $this->User->validationErrors
 			));
 		}
 		$this->set('_serialize', 'result');

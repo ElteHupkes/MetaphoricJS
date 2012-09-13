@@ -10,7 +10,7 @@
  *
  * With a certain context "context", then the field's value binding
  * is looked up from context.data.User.name, whereas its validation
- * errors are retrieved from context.validationErrors.User.name.
+ * errors are retrieved from context.data.User.validationErrors.name
  * These bindings can be overridden, see options below.
  *
  * A full input field consist of three elements:
@@ -74,12 +74,14 @@ Mp.Form.InputHelper = (function() {
 		 * @param options
 		 */
 		helper : function(thisContext, name, options) {
+			var f = name.match(/^(.*?)\.(.*)$/),
+				model = f[1], path = f[2];
 			var settings = $.extend({
 				// The field type
 				controller: thisContext,
 
 				// Get own validation errors property from context
-				errorsBinding: 'controller.validationErrors.'+name,
+				errorsBinding: 'controller.data.'+model+'.errors.'+path,
 
 				// We'll just create a value binding, and let the sub input classes
 				// listen to it.
@@ -120,7 +122,7 @@ Mp.Form.InputHelper = (function() {
 				// input types (date, datetime, datetime-local, range,
 				// month, number, time, week, search) are better implemented as
 				// a new class (they all have other attributes, such as min/max/step)
-				// and are not yet implemented.
+				// and are not yet supported.
 				case 'color':
 				case 'email':
 				case 'tel':

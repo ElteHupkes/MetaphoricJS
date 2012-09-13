@@ -30,7 +30,7 @@ class User extends AppModel {
 			'required' => true,
 			'allowEmpty' => false
 		),
-		'password_plain' => array(
+		'password' => array(
 			'initialValue' => array(
 				'on' => 'create',
 				'allowEmpty' => false,

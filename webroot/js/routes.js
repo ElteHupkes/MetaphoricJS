@@ -49,7 +49,7 @@ App.Router = Ember.Router.extend({
 				connectOutlets: function(router, context) {
 					router.get('applicationController').connectOutlet({
 						controller: router.get('usersController'),
-						viewClass: App.UserAddView
+						viewClass: App.UserCreateFirstView
 					});
 				}
 			})

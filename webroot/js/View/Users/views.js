@@ -3,6 +3,21 @@
  *
  * @author Elte Hupkes
  */
-App.UserAddView = Em.View.extend({
-	templateName: 'users-add'
+App.UserFormView = Em.View.extend({
+	tagName: 'form',
+	templateName: 'users-form'
+});
+
+App.UserCreateFirstView = App.UserFormView.extend({
+	// Submit as createFirst
+	submit: function() {
+		this.get('controller').createFirst();
+	}
+});
+
+App.UserEditView = App.UserFormView.extend({
+	// Submit as createFirst
+	submit: function() {
+		this.get('controller').edit();
+	}
 });

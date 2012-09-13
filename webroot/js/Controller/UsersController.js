@@ -7,9 +7,16 @@ App.UsersController = Em.Controller.extend(App.BaseControllerMixin, {
 
 	roles: ['a', 'b', 'c'],
 
+	// Create first calls "save", but sets the "first" attribute
+	// to fix the URL.
 	createFirst: function() {
 		var User = this.get('data.User');
 		User.set('first', true);
 		User.save();
+	},
+
+	// Just calls save
+	save: function() {
+		this.get('data.User').save();
 	}
 });
