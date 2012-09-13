@@ -52,7 +52,25 @@ App.Router = Ember.Router.extend({
 						viewClass: App.UserCreateFirstView
 					});
 				}
+			}),
+
+			view: Em.Route.extend({
+				route: '/view/:user_id',
+				connectOutlets: function(router, context) {
+
+				},
+				serialize: function(obj) {
+					return {'user_id' : obj.get('id')};
+				},
+				deserialize: function(router, params) {
+
+				}
 			})
-		})
+		}),
+
+		// Actions
+		doHome : function(router, event) {
+			router.transitionTo('root.index');
+		}
 	})
 });

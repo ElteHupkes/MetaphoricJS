@@ -64,7 +64,8 @@ Mp.Form.InputHelper = (function() {
 			text : Mp.Form.TextField,
 			textarea: Mp.Form.TextArea,
 			select: Mp.Form.Select,
-			checkbox: Mp.Form.Checkbox
+			checkbox: Mp.Form.Checkbox,
+			hidden: Mp.Form.HiddenField
 		},
 
 		/**
@@ -112,6 +113,7 @@ Mp.Form.InputHelper = (function() {
 				case 'textarea':
 				case 'select':
 				case 'checkbox':
+				case 'hidden':
 					inputClass = this.defaultClasses[settings.type];
 					inferredType = settings.type;
 					break;
