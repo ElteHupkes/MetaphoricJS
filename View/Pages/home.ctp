@@ -8,4 +8,13 @@
 	<div id="content">
 		{{outlet}}
 	</div>
+	{{view App.UserLoginView}}
+
+	<div id="messages">
+		{{#if controller.messages.length}}
+		{{#each message in controller.messages}}
+			<div {{bindAttr class="message.className"}}>{{message.text}}</div>
+		{{/each}}
+		{{/if}}
+	</div>
 </script>

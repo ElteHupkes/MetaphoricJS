@@ -40,13 +40,20 @@ App.Router = Ember.Router.extend({
 			route: '/users',
 
 			index: Em.Route.extend({
-				route: '/'
+				route: '/',
+				connectOutlets: function(router) {
+					router.get('applicationController').connectOutlet({
+						controller: router.get('usersController'),
+						viewClass: App.UserIndexView,
+						context: App.User.findAll()
+					});
+				}
 			}),
 
 			create_first: Em.Route.extend({
 				route: '/create_first',
 
-				connectOutlets: function(router, context) {
+				connectOutlets: function(router) {
 					router.get('applicationController').connectOutlet({
 						controller: router.get('usersController'),
 						viewClass: App.UserCreateFirstView
@@ -54,8 +61,8 @@ App.Router = Ember.Router.extend({
 				}
 			}),
 
-			view: Em.Route.extend({
-				route: '/view/:user_id',
+			edit: Em.Route.extend({
+				route: '/edit/:user_id',
 				connectOutlets: function(router, context) {
 
 				},
@@ -69,8 +76,15 @@ App.Router = Ember.Router.extend({
 		}),
 
 		// Actions
-		doHome : function(router, event) {
+		doHome : function(router) {
 			router.transitionTo('root.index');
+		},
+
+		doUsers: function(router) {
+			router.transitionTo('users.index');
+		},
+		doCreateFirstUser: function(router) {
+			router.transitionTo('users.create_first');
 		}
 	})
 });

@@ -76,17 +76,23 @@ Mp.Form.InputHelper = (function() {
 		 */
 		helper : function(thisContext, name, options) {
 			var f = name.match(/^(.*?)\.(.*)$/),
-				model = f[1], path = f[2];
+				model = f[1], path = f[2], bindingBase = 'controller.data';
+
+			if ('bindingBase' in options) {
+				bindingBase = options['bindingBase'];
+				delete options['bindingBase'];
+			}
+
 			var settings = $.extend({
 				// The field type
 				controller: thisContext,
 
 				// Get own validation errors property from context
-				errorsBinding: 'controller.data.'+model+'.errors.'+path,
+				errorsBinding: bindingBase+'.'+model+'.errors.'+path,
 
 				// We'll just create a value binding, and let the sub input classes
 				// listen to it.
-				valueBinding : 'controller.data.'+name,
+				valueBinding : bindingBase+'.'+name,
 
 				classNames: ['input']
 			}, options.hash), inputClass, inferredType;

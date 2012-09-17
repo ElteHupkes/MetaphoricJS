@@ -11,5 +11,8 @@ Em.I18n.translations = {
 	// User form details
 	'user.name' : 'Name:',
 	'user.email' : 'E-mail address:',
-	'user.password': 'Password:'
+	'user.password': 'Password:',
+	'user.password_confirm': 'Confirm password:',
+	'user.errors.password_match': 'Entered passwords do not match.',
+	'user.saved': 'Successfully saved user.'
 };

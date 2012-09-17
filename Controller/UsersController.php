@@ -15,7 +15,57 @@ class UsersController extends AppController {
 	 * Login action
 	 */
 	public function login() {
+		if ((!empty($this->request->data) && $this->Auth->login()) || $this->Auth->loggedIn()) {
+			$this->user_info();
+		} else {
+			$this->set('result', array(
+				'status' => 1,
+				'error' => __('Incorrect username/password.')
+			));
+		}
+		$this->set('_serialize', 'result');
+	}
 
+	/**
+	 * Logout method
+	 */
+	public function logout() {
+		$this->Auth->logout();
+		$this->set('result', array(
+			'status' => 0
+		));
+		$this->set('_serialize', 'result');
+	}
+
+	/**
+	 * Returns the logged in user
+	 */
+	public function user_info() {
+		if ($this->Auth->loggedIn()) {
+			$this->set('result', array(
+				'status' => 0,
+				'User' => $this->Auth->user()
+			));
+		} else {
+			$this->set('result', array(
+				'status' => 1,
+				'error' => __('No logged in user.')
+			));
+		}
+		$this->set('_serialize', 'result');
+	}
+
+	/**
+	 * Lists all users
+	 */
+	public function index() {
+		$users = $this->User->find('all', array(
+			'fields' => array('id', 'name')
+		));
+		$this->set(array(
+			'users' => $users,
+			'_serialize' => 'users'
+		));
 	}
 
 	/**

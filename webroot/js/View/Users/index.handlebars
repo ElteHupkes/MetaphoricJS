@@ -1,0 +1,13 @@
+{{#if controller.content.loaded}}
+	{{#if controller.content.length}}
+	<ul>
+		{{#each user in controller.content}}
+		<li>{{user.User.name}}</li>
+		{{/each}}
+	</ul>
+	{{else}}
+	No users in list. <a href="#" {{action doCreateFirstUser}}>Create the first.</a>
+	{{/if}}
+{{else}}
+Loading data...
+{{/if}}

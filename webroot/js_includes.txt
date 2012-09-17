@@ -9,8 +9,10 @@ lib/Mp/Form/text_area
 lib/Mp/Form/select
 lib/Mp/Form/checkbox
 lib/Mp/Form/Helper/input
+Model/Model
 Model/Post
 Model/User
+Model/AuthUser
 Controller/BaseController
 Controller/PostsController
 Controller/UsersController

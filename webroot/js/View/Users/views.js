@@ -3,21 +3,23 @@
  *
  * @author Elte Hupkes
  */
-App.UserFormView = Em.View.extend({
-	tagName: 'form',
-	templateName: 'users-form'
+App.UserLoginView = Em.View.extend({
+	tagName: 'div',
+	templateName: 'users-login'
 });
 
-App.UserCreateFirstView = App.UserFormView.extend({
+App.UserCreateView = Em.View.extend({
+	tagName: 'form',
+	templateName: 'users-create'
+});
+
+App.UserCreateFirstView = App.UserCreateView.extend({
 	// Submit as createFirst
 	submit: function() {
 		this.get('controller').createFirst();
 	}
 });
 
-App.UserEditView = App.UserFormView.extend({
-	// Submit as createFirst
-	submit: function() {
-		this.get('controller').edit();
-	}
+App.UserIndexView = Em.View.extend({
+	templateName: 'users-index'
 });
