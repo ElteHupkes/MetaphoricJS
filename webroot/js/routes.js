@@ -64,27 +64,27 @@ App.Router = Ember.Router.extend({
 			edit: Em.Route.extend({
 				route: '/edit/:user_id',
 				connectOutlets: function(router, context) {
-
+					router.get('usersController').set('data.user', App.User.find(context.get('id')));
+					router.get('applicationController').connectOutlet({
+						controller: router.get('usersController'),
+						viewClass: App.UserEditView
+					});
 				},
-				serialize: function(obj) {
+				serialize: function(router, obj) {
 					return {'user_id' : obj.get('id')};
 				},
 				deserialize: function(router, params) {
-
+					return Ember.Object.create({id : params.user_id});
 				}
-			})
+			}),
+
+			// Actions
+			editUser: Em.Route.transitionTo('edit')
 		}),
 
 		// Actions
-		doHome : function(router) {
-			router.transitionTo('root.index');
-		},
-
-		doUsers: function(router) {
-			router.transitionTo('users.index');
-		},
-		doCreateFirstUser: function(router) {
-			router.transitionTo('users.create_first');
-		}
+		doHome : Em.Route.transitionTo('root.index'),
+		doUsers: Em.Route.transitionTo('users.index'),
+		doCreateFirstUser: Em.Route.transitionTo('users.create_first')
 	})
 });

@@ -20,6 +20,15 @@ App.UserCreateFirstView = App.UserCreateView.extend({
 	}
 });
 
+App.UserEditView = Em.View.extend({
+	// Submit as createFirst
+	tagName: 'form',
+	templateName: 'users-edit',
+	submit: function() {
+		this.get('controller').save();
+	}
+});
+
 App.UserIndexView = Em.View.extend({
 	templateName: 'users-index'
 });

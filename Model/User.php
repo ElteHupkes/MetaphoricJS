@@ -38,15 +38,15 @@ class User extends AppModel {
 				'rule' => 'notEmpty',
 				'message' => 'This field is required.'
 			),
-			// On create only
 			'length' => array(
 				'rule' => array('minLength', 8),
-				'message' => 'The password has to be at least %d characters.'
+				'message' => 'The password has to be at least %d characters.',
+				'allowEmpty' => false
 			)
 		),
 		'current_password' => array(
 			'rule' => 'matchesCurrentPassword',
-			'message' => 'Wachtwoord incorrect',
+			'message' => 'Password incorrect',
 			'on' => 'update'
 		),
 	);
@@ -61,6 +61,16 @@ class User extends AppModel {
 		$pw = $this->field('password');
 
 		return !empty($pw) && checkPassword($f, $pw);
+	}
+
+	/**
+	 * @return bool|void
+	 */
+	public function beforeValidate() {
+		if (empty($this->data['User']['password'])) {
+			unset($this->validate['current_password']);
+		}
+		return true;
 	}
 
 	/**

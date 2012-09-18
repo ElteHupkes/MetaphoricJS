@@ -1,0 +1,15 @@
+<h1>Edit user</h1>
+{{#if controller.data.user.isLoaded}}
+	{{input user.name labelTranslation="user.name" autofocus="autofocus"}}
+	{{input user.email labelTranslation="user.email" type="email"}}
+
+	{{input user.password labelTranslation="user.new_password" type="password"}}
+
+	{{#if controller.data.user.password}}
+		{{input user.password_confirm labelTranslation="user.password_confirm" type="password"}}
+		{{input user.current_password label="Current password" type="password"}}
+	{{/if}}
+	<button type="submit">Save</button>
+{{else}}
+	Loading data...
+{{/if}}

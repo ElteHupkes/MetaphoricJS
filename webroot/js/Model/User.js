@@ -9,6 +9,7 @@ App.User = App.Model.extend({
 	email: null,
 	password: null,
 	password_confirm: null,
+	current_password: null,
 
 	// Attempt to create first record?
 	first: false,
@@ -39,28 +40,35 @@ App.User = App.Model.extend({
 
 		var obj = {User: {}},
 			fields = Em.A([
-				'id', 'name', 'email', 'password'
+				'name', 'email'
 			]), action, that = this;
+
+		var edit = !!this.get('id');
+
+		if (!edit) {
+			fields.pushObject('password');
+		} else if (this.get('password')) {
+			fields.pushObjects(['password', 'current_password', 'password_confirm']);
+		}
 
 		$.each(fields, function(k, v) {
 			obj.User[v] = that.get(v);
 		});
 
-		action = !!obj.id ? 'edit/'+obj.id : 'add';
-
-		this.clearErrors();
-		if (!this.validates()) {
-			return false;
-		}
-
 		if (this.get('first')) {
 			action = '/users/create_first';
 		} else {
-			action = '/users/'+action;
+			action = edit ? '/admin/users/edit/'+this.get('id') : '/admin/users/add';
 		}
 
+		this.clearErrors();
+		if (!this.validates(fields)) {
+			return false;
+		}
+
+		delete obj['User']['password_confirm'];
 		$.ajax({
-			type: 'POST',
+			type: edit ? 'POST' : 'PUT',
 			url: action,
 			data: JSON.stringify(obj),
 			beforeSend: function() {
@@ -68,13 +76,12 @@ App.User = App.Model.extend({
 			},
 			success: function(data) {
 				if (data.status == 0) {
-
+					if (typeof success == 'function') {
+						success.call(that, data);
+					}
 				} else if (data.errors) {
 					// Set validation errors
 					that.set('errors', data.errors);
-				}
-				if (typeof success == 'function') {
-					success.call(that, data);
 				}
 			},
 			complete: function() {
@@ -91,7 +98,7 @@ App.User = App.Model.extend({
 	 * @return {Boolean}
 	 */
 	passwordMatches: function() {
-		return this.get('password') === this.get('password_confirm');
+		return this.get('password') == this.get('password_confirm');
 	}
 });
 
@@ -99,24 +106,23 @@ App.User = App.Model.extend({
 App.User.reopenClass({
 	// Finds a user by ID
 	find: function(id) {
-		var user = App.User.create({loaded: false}),
+		var user = App.User.create({isLoaded: false, id: id}),
 			action = '/admin/users/view/'+id;
 		$.getJSON(action, function(data) {
-			user.set('loaded', true);
-			user.set('data', data.User);
+			user.setProperties(data.User);
+			user.set('isLoaded', true);
 		});
 		return user;
 	},
 
 	// Finds a list of all users
 	findAll: function() {
-		var list = Ember.ArrayProxy.create({
-			loaded: false,
-			content: []
-		});
+		var list = [];
 		$.getJSON('/users/index', function(data) {
-			list.set('content', data);
-			list.set('loaded', true);
+			$.each(data, function() {
+				list.pushObject(App.User.create(this.User));
+			});
+			list.set('isLoaded', true);
 		});
 		return list;
 	}

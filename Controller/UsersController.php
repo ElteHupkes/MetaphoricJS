@@ -102,9 +102,49 @@ class UsersController extends AppController {
 	}
 
 	/**
+	 * "View" user data; used for edit.
+	 * @param string $id
+	 */
+	public function admin_view($id = null) {
+		$user = $this->User->find('first', array(
+			'conditions' => array('id' => $id),
+			'fields' => array('id', 'name', 'email')
+		));
+		if (!$user) {
+			throw new NotFoundException;
+		}
+		$this->set(array(
+			'_serialize' => 'result',
+			'result' => $user
+		));
+	}
+
+	/**
 	 *
 	 */
-	public function admin_edit() {
+	public function admin_edit($id = null) {
+		$this->User->id = $id;
+		if (!$this->User->exists()) {
+			throw new NotFoundException;
+		}
 
+		unset($this->request->data['User']['id']);
+
+		$fields = array('name', 'email');
+		if (!empty($this->request->data['User']['password'])) {
+			$fields[] = 'current_password';
+			$fields[] = 'password';
+		}
+
+		if ($this->User->save($this->request->data, true, $fields)) {
+			$result = array('status' => 0);
+		} else {
+			$result = array('status' => 1, 'errors' => $this->User->validationErrors);
+		}
+
+		$this->set(array(
+			'result' => $result,
+			'_serialize' => 'result'
+		));
 	}
 }

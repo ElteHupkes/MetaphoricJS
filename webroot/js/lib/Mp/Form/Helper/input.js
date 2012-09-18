@@ -6,12 +6,15 @@
  * validation errors. It works in a way similar to CakePHP's FormHelper::input()
  * method. Say you show a new input field using:
  *
- * {{input User.name}}
+ * {{input user.name}}
  *
  * With a certain context "context", then the field's value binding
- * is looked up from context.data.User.name, whereas its validation
- * errors are retrieved from context.data.User.validationErrors.name
+ * is looked up from context.data.user.name, whereas its validation
+ * errors are retrieved from context.data.user.validationErrors.name
  * These bindings can be overridden, see options below.
+ * Note that using capital letters for variable names can lead
+ * Ember to believe that they should be looked up in the global context;
+ * so despite this being a CakePHP convention this should be avoided.
  *
  * A full input field consist of three elements:
  * - A label
@@ -65,7 +68,7 @@ Mp.Form.InputHelper = (function() {
 			textarea: Mp.Form.TextArea,
 			select: Mp.Form.Select,
 			checkbox: Mp.Form.Checkbox,
-			hidden: Mp.Form.HiddenField
+			hidden: Mp.Form.Hidden
 		},
 
 		/**
@@ -78,9 +81,9 @@ Mp.Form.InputHelper = (function() {
 			var f = name.match(/^(.*?)\.(.*)$/),
 				model = f[1], path = f[2], bindingBase = 'controller.data';
 
-			if ('bindingBase' in options) {
-				bindingBase = options['bindingBase'];
-				delete options['bindingBase'];
+			if ('bindingBase' in options.hash) {
+				bindingBase = options.hash['bindingBase'];
+				delete options.hash['bindingBase'];
 			}
 
 			var settings = $.extend({
@@ -96,7 +99,6 @@ Mp.Form.InputHelper = (function() {
 
 				classNames: ['input']
 			}, options.hash), inputClass, inferredType;
-
 
 			// Try to infer the type
 			if ('inferredType' in settings) {
@@ -144,10 +146,11 @@ Mp.Form.InputHelper = (function() {
 					inputClass = Ember.Handlebars.getPath(thisContext, settings.type, options);
 			}
 
-			if (typeof settings.classNames == 'array') {
+			var type = Ember.typeOf(settings.classNames);
+			if (type == 'array') {
 				// classNames not overridden, add type.
 				settings.classNames.push(inferredType);
-			} else if (typeof settings.classNames == 'string') {
+			} else if (type == 'string') {
 				// Split class names on whitespace
 				settings.classNames = settings.classNames.split(/\s/);
 			}

@@ -69,8 +69,6 @@ class BcryptAuthenticate extends FormAuthenticate {
 			return false;
 		}
 
-		$newHash = $this->_password($password);
-
 		/**
 		 * Verify the password
 		 */

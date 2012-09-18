@@ -17,9 +17,9 @@ App.Model = Em.Object.extend({
 
 	/**
 	 * Used to check if the request to load this
-	 * user's data has been completed.
+	 * model's data has been completed.
 	 */
-	loaded: false,
+	isLoaded: false,
 
 	/**
 	 * Validation rules, override in child model. Since local
@@ -66,10 +66,14 @@ App.Model = Em.Object.extend({
 	 * Processes validation rules and adds the appropriate
 	 * errors.
 	 */
-	validates: function() {
+	validates: function(fields) {
 		var result = true;
 		for (var k in this.validationRules) {
 			if (this.validationRules.hasOwnProperty(k)) {
+				if (fields && $.inArray(k, fields) < 0) {
+					continue;
+				}
+
 				var vRule = this.validationRules[k],
 					fn = typeof vRule.rule == 'string' ? this[vRule.rule] : vRule.rule;
 

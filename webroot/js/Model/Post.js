@@ -3,7 +3,9 @@
  *
  * @author Elte Hupkes
  */
-App.Post = Em.Object.extend();
+App.Post = Em.Object.extend({
+	id: null
+});
 App.Post.reopenClass({
 	/**
 	 * Finds a post by slug
@@ -18,6 +20,6 @@ App.Post.reopenClass({
 	 * the index page.
 	 */
 	findAll: function() {
-
+		return [];
 	}
 });

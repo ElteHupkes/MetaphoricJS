@@ -4,7 +4,9 @@
  * @author Elte Hupkes
  */
 var Mp = window.Mp;
-Mp.Form.HiddenField = Em.View.extend({
+Mp.Form.Hidden = Em.View.extend({
 	type: 'hidden',
-	className: 'div'
+	attributeBindings: ['type', 'style'],
+	tagName: 'input',
+	style: 'display:none;'
 });

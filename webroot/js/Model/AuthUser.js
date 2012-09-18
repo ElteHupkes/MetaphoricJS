@@ -18,9 +18,14 @@ App.AuthUser = App.Model.extend({
 		$.ajax({
 			type: 'POST',
 			url: '/users/login',
+			data: JSON.stringify({User: {
+				email: this.get('email'),
+				password: this.get('password')
+			}}),
 			success: function(data) {
 				if (data.status == 0) {
-					this.setProperties(data.user);
+					that.set('loggedIn', true);
+					that.setProperties(data.User);
 				} else if (data.error) {
 					that.set('loginError', data.error);
 				}
@@ -40,10 +45,11 @@ App.AuthUser = App.Model.extend({
 	},
 
 	checkLogin: function() {
+		var that = this;
 		$.get('/users/user_info', function(data) {
 			if (data.status == 0) {
-				this.set('loggedIn', true);
-				this.setProperties(data.user);
+				that.set('loggedIn', true);
+				that.setProperties(data.User);
 			}
 		});
 	}

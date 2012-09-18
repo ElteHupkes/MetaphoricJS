@@ -1,12 +1,13 @@
-{{#if App.user.loggedIn}}
-	Logged in as {{App.user.name}}. <a href="#"{{action logout target=App.authUser}}></a>
+{{#if App.authUser.loggedIn}}
+	Logged in as {{App.authUser.name}}. <a href="#" {{action logout target="App.authUser"}}>Log out.</a>
 {{else}}
 	<h2>Login</h2>
 	<form {{action login target="App.authUser" on="submit"}}>
-		{{input authUser.email bindingBase="App" labelTranslation="user.email"}}
-		{{input authUser.password bindingBase="App" labelTranslation="user.password"}}
+		{{input authUser.email type="email" bindingBase="App" labelTranslation="user.email"}}
+		{{input authUser.password type="password" bindingBase="App" labelTranslation="user.password"}}
+
 		{{#if App.authUser.loginError}}
-		<div class="error">{{App.authUser.loginError}}</div>
+			<div class="error">{{App.authUser.loginError}}</div>
 		{{/if}}
 		<button>Login</button>
 	</form>

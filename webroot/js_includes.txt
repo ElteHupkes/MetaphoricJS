@@ -5,6 +5,7 @@ lib/Mp/Form/Mixin/text_support
 lib/Mp/Form/Mixin/input_support
 lib/Mp/Form/field
 lib/Mp/Form/text_field
+lib/Mp/Form/hidden
 lib/Mp/Form/text_area
 lib/Mp/Form/select
 lib/Mp/Form/checkbox
