@@ -17,8 +17,10 @@ Model/AuthUser
 Controller/BaseController
 Controller/PostsController
 Controller/UsersController
+Controller/PagesController
 View/Users/views
 View/Posts/views
+View/Pages/views
 i18n
 routes
 init

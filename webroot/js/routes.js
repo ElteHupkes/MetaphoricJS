@@ -1,5 +1,7 @@
 /**
  * Router for metaphoric.nl
+ *
+ * @author Elte Hupkes
  */
 App.Router = Ember.Router.extend({
 	root : Ember.Route.extend({
@@ -82,9 +84,53 @@ App.Router = Ember.Router.extend({
 			editUser: Em.Route.transitionTo('edit')
 		}),
 
+		// Static page routes
+		about: Em.Route.extend({
+			route: '/about',
+			connectOutlets: function(router) {
+				App.setTitle('About me');
+				router.get('applicationController').connectOutlet({
+					viewClass: App.PageAboutView,
+					controller: router.get('pagesController')
+				});
+			}
+		}),
+		media: Em.Route.extend({
+			route: '/media',
+			connectOutlets: function(router) {
+				App.setTitle('Media');
+				router.get('applicationController').connectOutlet({
+					viewClass: App.PageMediaView,
+					controller: router.get('pagesController')
+				});
+			}
+		}),
+		contact: Em.Route.extend({
+			route: '/contact',
+			connectOutlets: function(router) {
+				App.setTitle('Contact');
+				router.get('applicationController').connectOutlet({
+					viewClass: App.PageContactView,
+					controller: router.get('pagesController')
+				});
+			}
+		}),
+
 		// Actions
-		doHome : Em.Route.transitionTo('root.index'),
+		goHome : Em.Route.transitionTo('root.index'),
 		doUsers: Em.Route.transitionTo('users.index'),
-		doCreateFirstUser: Em.Route.transitionTo('users.create_first')
+		doCreateFirstUser: Em.Route.transitionTo('users.create_first'),
+
+		// Static page routes
+		goAbout: Em.Route.transitionTo('about'),
+		goMedia: Em.Route.transitionTo('media'),
+		goContact: Em.Route.transitionTo('contact')
 	})
+});
+
+// Transition to home on not-authorized error; which is probably logged out.
+$('body').ajaxError(function(e, jqxhr) {
+	if (403 == jqxhr.status) {
+		App.get('router').transitionTo('root.index');
+	}
 });

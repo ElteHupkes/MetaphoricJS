@@ -9,14 +9,29 @@
 	<?php
 		echo $this->Html->meta('icon');
 		echo $this->fetch('meta');
+		echo $this->Html->css(array('reset', 'styles'));
 		echo $this->fetch('css');
 	?>
 </head>
 <body>
-<?php
-	echo $this->fetch('content');
-	echo $this->element('all_templates');
-?>
+<div id="wrapper">
+	<div id="header">
+		<div id="logo"><a href="/">Metaphoric :: Elte Hupkes</a></div>
+		<div id="tagline">A blog about music, philosophy, and complete, utter uselessness.</div>
+	</div>
+	<div id="content-wrapper">
+		<div id="content-top"></div>
+		<div id="content-body">
+			<?php
+				echo $this->fetch('content');
+				echo $this->element('all_templates');
+			?>
+		</div>
+	</div>
+	<div id="footer">
+		<a id="scitus" href="http://www.scitus.nl" target="_blank">&copy; Elte Hupkes / Scitus Webdesign</a>
+	</div>
+</div>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 <?php
 if (Configure::read('debug') > 1) {

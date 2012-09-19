@@ -7,7 +7,14 @@
  *
  * @author Elte Hupkes
  */
-App = Em.Application.create();
+App = Em.Application.create({
+	rootElement: $('#content-body'),
+
+	titleElement : $('title'),
+	setTitle: function(title) {
+		this.titleElement.html(title + ' :: Metaphoric');
+	}
+});
 
 /**
  * Application controller, currently does nothing special.

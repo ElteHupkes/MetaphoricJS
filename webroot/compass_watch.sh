@@ -1,0 +1,1 @@
+compass watch . --sass-dir scss --css-dir css --images-dir img --relative-assets

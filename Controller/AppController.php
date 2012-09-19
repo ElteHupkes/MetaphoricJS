@@ -61,11 +61,12 @@ class AppController extends Controller {
 
 	/**
 	 * Call this method to display a "not authorized"
-	 * message.
+	 * message. It uses a 403 status code since HTTP-authorization
+	 * cannot be used to login.
 	 */
 	protected function _notAuthorized() {
 		$this->RequestHandler->renderAs($this, 'json');
-		$this->response->statusCode(401);
+		$this->response->statusCode(403);
 		$this->set(array(
 			'message' => __('You are not authorized to view this location.'),
 			'_serialize' => 'message'
