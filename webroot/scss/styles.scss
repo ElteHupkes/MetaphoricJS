@@ -374,3 +374,23 @@ p object {
 	width:29px;
 	background:url(../img/facebook.png) no-repeat;
 }
+
+/* Form styles */
+label {
+	font-size:1.2em;
+	display:block;
+}
+div.input.text, div.input.email, div.input.password {
+	input {
+		width:300px;
+		border:1px solid #ccc;
+	}
+}
+div.input {
+	margin-bottom:0.5em;
+	textarea {
+		width:520px;
+		border:1px solid #ccc;
+		height:300px;
+	}
+}

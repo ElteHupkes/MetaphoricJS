@@ -1,7 +1,7 @@
 <script type="text/x-handlebars" data-template-name="application">
 	<div id="right">
 		<div id="about-me">
-			<a {{action goAbout href=true}}>
+			<a {{action goPage App.pages.about href=true}}>
 				<img title="Elte Hupkes" alt="Elte Hupkes" src="/img/elte.jpg" />
 			</a>
 			<h3>Elte Hupkes</h3>
@@ -14,9 +14,12 @@
 			<div class="block-body">
 				<ul>
 					<li><a {{action goHome href=true}}>Home</a></li>
-					<li><a {{action goAbout href=true}}>About</a></li>
-					<li><a {{action goMedia href=true}}>Media</a></li>
-					<li><a {{action goContact href=true}}>Contact</a></li>
+					<li><a {{action goPage App.pages.about href=true}}>About</a></li>
+					<li><a {{action goPage App.pages.media href=true}}>Media</a></li>
+					<li><a href="mailto:elte@hupkes.org">Contact</a></li>
+					{{#if App.authUser.loggedIn}}
+					<li><a {{action doAddPost href=true}}>Add post</a></li>
+					{{/if}}
 				</ul>
 			</div>
 		</div>

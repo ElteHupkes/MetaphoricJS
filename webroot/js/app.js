@@ -13,6 +13,18 @@ App = Em.Application.create({
 	titleElement : $('title'),
 	setTitle: function(title) {
 		this.titleElement.html(title + ' :: Metaphoric');
+	},
+
+	/**
+	 * A list of static pages to us as an object
+	 * for the action helper. This is sorta awkward,
+	 * but you have to pass an object to the "action"
+	 * helper, and otherwise I'd have to use a separate
+	 * identical action for each page.
+	 */
+	pages: {
+		about: {page : 'about'},
+		media: {page: 'media'}
 	}
 });
 

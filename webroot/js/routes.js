@@ -19,12 +19,22 @@ App.Router = Ember.Router.extend({
 			// Posts index
 			index: Ember.Route.extend({
 				route: '/',
-				connectOutlets : function(router, context) {
+				connectOutlets : function(router) {
 					router.get('applicationController').connectOutlet({
 						viewClass : App.PostsIndexView,
 						controller : router.get('postsController'),
 						context : App.Post.findAll()
 					});
+				}
+			}),
+
+			add: Ember.Route.extend({
+				route: '/add',
+				connectOutlets: function(router) {
+					router.get('applicationController').connectOutlet({
+						viewClass: App.PostsAddView,
+						controller: router.get('postsController')
+					})
 				}
 			}),
 
@@ -80,39 +90,38 @@ App.Router = Ember.Router.extend({
 				}
 			}),
 
+			login: Em.Route.extend({
+				route: '/login',
+				connectOutlets: function(router) {
+					router.get('applicationController').connectOutlet({
+						controller: router.get('usersController'),
+						viewClass: App.UserLoginView
+					})
+				}
+			}),
+
 			// Actions
 			editUser: Em.Route.transitionTo('edit')
 		}),
 
-		// Static page routes
-		about: Em.Route.extend({
-			route: '/about',
-			connectOutlets: function(router) {
-				App.setTitle('About me');
+		page: Em.Route.extend({
+			route: '/page/:page',
+			connectOutlets: function(router, context) {
+				if (!(context.page in App.pages)) {
+					router.transitionTo('/');
+				}
+
+				var page = context.page,
+					viewClassName = "Page"+page.charAt(0).toUpperCase() + page.substr(1) + "View",
+					viewClass = App.get(viewClassName);
+
 				router.get('applicationController').connectOutlet({
-					viewClass: App.PageAboutView,
-					controller: router.get('pagesController')
+					controller: router.get('pagesController'),
+					viewClass: viewClass
 				});
-			}
-		}),
-		media: Em.Route.extend({
-			route: '/media',
-			connectOutlets: function(router) {
-				App.setTitle('Media');
-				router.get('applicationController').connectOutlet({
-					viewClass: App.PageMediaView,
-					controller: router.get('pagesController')
-				});
-			}
-		}),
-		contact: Em.Route.extend({
-			route: '/contact',
-			connectOutlets: function(router) {
-				App.setTitle('Contact');
-				router.get('applicationController').connectOutlet({
-					viewClass: App.PageContactView,
-					controller: router.get('pagesController')
-				});
+			},
+			deserialize: function(router, params) {
+				return params;
 			}
 		}),
 
@@ -120,17 +129,16 @@ App.Router = Ember.Router.extend({
 		goHome : Em.Route.transitionTo('root.index'),
 		doUsers: Em.Route.transitionTo('users.index'),
 		doCreateFirstUser: Em.Route.transitionTo('users.create_first'),
+		doAddPost: Em.Route.transitionTo('posts.add'),
 
-		// Static page routes
-		goAbout: Em.Route.transitionTo('about'),
-		goMedia: Em.Route.transitionTo('media'),
-		goContact: Em.Route.transitionTo('contact')
+		// Page transition action
+		goPage: Em.Route.transitionTo('page')
 	})
 });
 
 // Transition to home on not-authorized error; which is probably logged out.
 $('body').ajaxError(function(e, jqxhr) {
 	if (403 == jqxhr.status) {
-		App.get('router').transitionTo('root.index');
+		App.get('router').transitionTo('users.login');
 	}
 });

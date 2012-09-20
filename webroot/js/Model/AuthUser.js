@@ -8,6 +8,9 @@ App.AuthUser = App.Model.extend({
 	// Logged in flag.
 	loggedIn: false,
 
+	// Loaded flag
+	isLoaded: false,
+
 	/**
 	 * Logs the user in using the provided
 	 * credentials.
@@ -51,6 +54,7 @@ App.AuthUser = App.Model.extend({
 				that.set('loggedIn', true);
 				that.setProperties(data.User);
 			}
+			that.set('isLoaded', true);
 		});
 	}
 });
