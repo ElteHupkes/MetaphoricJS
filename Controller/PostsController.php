@@ -24,13 +24,54 @@ class PostsController extends AppController {
 	 * Adds a post
 	 */
 	public function admin_add() {
-
+		unset($this->request->data['Post']['id']);
+		$this->request->data['Post']['author_id'] = $this->Auth->user('id');
+		$this->Post->create();
+		$fields = array('title', 'preview', 'author_id', 'content', 'published');
+		if ($this->Post->save($this->request->data, true, $fields)) {
+			$this->set(array(
+				'result' => array(
+					'status' => 0,
+					'post_id' => $this->Post->id
+				),
+				'_serialize' => 'result'
+			));
+		} else {
+			$this->set(array(
+				'result' => array(
+					'status' => 1,
+					'validationErrors' => $this->Post->validationErrors
+				),
+				'_serialize' => 'result'
+			));
+		}
 	}
 
 	/**
 	 * Updates an existing post
 	 */
-	public function admin_edit() {
-
+	public function admin_edit($id = null) {
+		$this->Post->id = $id;
+		if (!$this->Post->exists()) {
+			throw new NotFoundException;
+		}
+		$fields = array('title', 'preview', 'content', 'published');
+		if ($this->Post->save($this->request->data, true, $fields)) {
+			$this->set(array(
+				'result' => array(
+					'status' => 0,
+					'post_id' => $this->Post->id
+				),
+				'_serialize' => 'result'
+			));
+		} else {
+			$this->set(array(
+				'result' => array(
+					'status' => 1,
+					'validationErrors' => $this->Post->validationErrors
+				),
+				'_serialize' => 'result'
+			));
+		}
 	}
 }

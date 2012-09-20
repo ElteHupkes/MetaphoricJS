@@ -3,8 +3,17 @@
  *
  * @author Elte Hupkes
  */
-App.Post = Em.Object.extend({
-	id: null
+App.Post = App.Model.extend({
+	id: null,
+
+	/**
+	 * Saves this post to persistent storage
+	 */
+	save: function() {
+		var edit = this.get('id');
+
+
+	}
 });
 App.Post.reopenClass({
 	/**

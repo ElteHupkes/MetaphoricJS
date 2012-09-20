@@ -380,6 +380,16 @@ label {
 	font-size:1.2em;
 	display:block;
 }
+.checkbox {
+	line-height:25px;
+	label {
+		margin-right:20px;
+		display:inline-block;
+	}
+	input {
+		line-height:25px;
+	}
+}
 div.input.text, div.input.email, div.input.password {
 	input {
 		width:300px;
