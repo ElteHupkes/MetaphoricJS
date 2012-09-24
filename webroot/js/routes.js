@@ -128,6 +128,7 @@ App.Router = Ember.Router.extend({
 		// Actions
 		goHome : Em.Route.transitionTo('root.index'),
 		doUsers: Em.Route.transitionTo('users.index'),
+		doLogin: Em.Route.transitionTo('users.login'),
 		doCreateFirstUser: Em.Route.transitionTo('users.create_first'),
 		doAddPost: Em.Route.transitionTo('posts.add'),
 

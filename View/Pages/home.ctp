@@ -19,6 +19,9 @@
 					<li><a href="mailto:elte@hupkes.org">Contact</a></li>
 					{{#if App.authUser.loggedIn}}
 					<li><a {{action doAddPost href=true}}>Add post</a></li>
+                    <li><a {{action doLogin href=true}}>Log out</a></li>
+                    {{else}}
+					<li><a {{action doLogin href=true}}>Log in</a></li>
 					{{/if}}
 				</ul>
 			</div>

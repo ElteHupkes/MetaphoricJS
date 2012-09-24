@@ -16,4 +16,9 @@ class Post extends AppModel {
 			'required' => true
 		)
 	);
+
+	/**
+	 * @var array
+	 */
+	public $order = array('created' => 'desc');
 }

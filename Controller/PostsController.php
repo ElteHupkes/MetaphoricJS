@@ -8,16 +8,37 @@
  */
 class PostsController extends AppController {
 	public $renderJson = true;
-	
+
+	/**
+	 * Configure simple pagination
+	 * @var array
+	 */
+	public $components = array(
+		'Paginator' => array(
+			'Post' => array(
+				'limit' => 10,
+				'paramType' => 'querystring',
+				'order' => array('Post.created' => 'desc')
+			),
+		)
+	);
+
 	/**
 	 * Returns a list of posts
 	 */
 	public function index() {
-		$posts = $this->Post->find('all');
+		$posts = $this->Paginator->paginate('Post', array('Post.published' => true));
 		$this->set(array(
 			'posts' => $posts,
 			'_serialize' => 'posts'
 		));
+	}
+
+	/**
+	 * Returns a list of posts, including non-published posts
+	 */
+	public function admin_index() {
+
 	}
 
 	/**

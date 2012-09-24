@@ -10,9 +10,9 @@ App.Post = App.Model.extend({
 	 * Saves this post to persistent storage
 	 */
 	save: function() {
-		var edit = this.get('id');
-
-
+		var edit = this.get('id'),
+			url = edit ? '/admin/posts/edit/'+this.get('id') : '/admin/posts/add',
+			fields = Em.A(['title', 'preview', 'content', 'published']);
 	}
 });
 App.Post.reopenClass({
